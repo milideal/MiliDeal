@@ -22,6 +22,7 @@ ALLOWED_HOSTS = [".run.goorm.io"]
 
 INSTALLED_APPS = [
     'mainAPI',
+    'storeapp',
 
     # djangorestframework
     'rest_framework',
