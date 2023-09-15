@@ -6,9 +6,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # envirion Key Management Module
 
-env_keys = environ.Env(
-    DEBUG=(bool, True)
-)
+env_keys = environ.Env()
+
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
@@ -21,7 +20,7 @@ ALLOWED_HOSTS = [".run.goorm.io"]
 
 INSTALLED_APPS = [
     'mainAPI',
-    'storeapp',
+    'store',
 
     # djangorestframework
     'rest_framework',

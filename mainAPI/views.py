@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from .serializers import TestSerializer
 from .models import TestModel
-from .decorators import convert_objectId
+from Util.decorators import convert_objectId
 
 
 class TestViewSets(ModelViewSet):

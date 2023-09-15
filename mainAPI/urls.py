@@ -5,5 +5,5 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register('test', TestViewSets)
 
 urlpatterns = router.urls
-    # [path('some_functional_view_rul', views.functional_view)]
+# [path('some_functional_view_rul', views.functional_view)]
 
