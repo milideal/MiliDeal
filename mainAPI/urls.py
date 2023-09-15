@@ -1,8 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from mainAPI.views import TestViewSets
-
-
+from .views import TestViewSets
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'test', TestViewSets)
