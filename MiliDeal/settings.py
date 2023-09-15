@@ -12,7 +12,6 @@ env_keys = environ.Env(
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-
 SECRET_KEY = env_keys('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = [".run.goorm.io"]
@@ -22,10 +21,11 @@ ALLOWED_HOSTS = [".run.goorm.io"]
 
 INSTALLED_APPS = [
     'mainAPI',
+    'storeapp',
 
     # djangorestframework
     'rest_framework',
-    
+
     # Django Basic Apps
     'django.contrib.admin',
     'django.contrib.auth',
