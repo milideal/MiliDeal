@@ -3,6 +3,7 @@ from djongo import models
 
 class StoreModel(models.Model):
     _id = models.ObjectIdField()
+    slug = models.SlugField(unique=True)
     address = models.CharField(max_length=100)   # 한글 주소
     coordx = models.FloatField()                 # x좌표
     coordy = models.FloatField()                 # y좌표
@@ -34,3 +35,4 @@ class StoreModel(models.Model):
 
     class Meta:
         db_table = "stores"
+        ordering = ['slug']
