@@ -1,0 +1,31 @@
+import environ
+import json
+from Util.kakao_api import KakaoAPI
+
+env_keys = environ.Env()
+environ.Env.read_env('.env')
+API_KEY = env_keys('KAKAO_RESTAPI_KEY')
+k = KakaoAPI(API_KEY)
+
+with open("./DATA/cgv.json", 'r', encoding='utf-8') as data:
+    data = json.load(data)
+    result = []
+    failed_list = []
+    for location in list(data):
+        TheaterName = location["TheaterName"]
+        docs = k.get_search_result_by_keyword(
+            keyword=TheaterName,
+            params={
+                "category_group_code": "CT1"
+                }
+            )
+        if docs is None:
+            failed_list.append(location)
+            continue
+        result.append(docs)
+
+with open(f'output.json', 'w',  encoding='utf-8') as f:
+    json.dump(result, f, indent=2, ensure_ascii=False)
+
+with open('failed.json', 'w',  encoding='utf-8') as f:
+    json.dump(failed_list, f, indent=2, ensure_ascii=False)
