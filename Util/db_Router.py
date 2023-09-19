@@ -1,6 +1,6 @@
 class UserRouter:
     # app Name
-    route_app_labels = {'user'}
+    route_app_labels = {'user', 'auth', 'contenttypes', 'admin', 'sessions', 'account'}
 
     # db키 값(settings.py에서 설정한 키 값이라고 보면된다.)
     db_name = 'user_db'
