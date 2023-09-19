@@ -13,5 +13,6 @@ root_router.registry.extend(store_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(root_router.urls))
+    path('', include(root_router.urls)),
+    path('user/', include('user.urls')),
 ]
