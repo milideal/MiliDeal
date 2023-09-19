@@ -3,11 +3,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 
 class UserManager(BaseUserManager):
+    use_in_migrations = True
+
     def create_user(self, email, password, **kwargs):
         if not email:
             raise ValueError('Users must have an email address')
         user = self.model(
-            email=email,
+            email=self.normalize_email(email),
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -26,15 +28,15 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    objects = UserManager()
+
     # username = models.TextField(max_length=30, unique=True)
-    email = models.EmailField(max_length=30, unique=True)
+    email = models.EmailField(max_length=255, unique=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    objects = UserManager()
 
     USERNAME_FIELD = 'email'
 
