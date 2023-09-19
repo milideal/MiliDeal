@@ -110,15 +110,15 @@ DATABASES = {
             'authMechanism': env_keys('mongo_authMechanism')
         }
     },
-    'user_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
+    # 'user_db': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
 }
 
-DATABASE_ROUTERS = [
-    'Util.db_Router.UserRouter',
-]
+# DATABASE_ROUTERS = [
+#     'Util.db_Router.UserRouter',
+# ]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
