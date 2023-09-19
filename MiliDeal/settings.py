@@ -18,9 +18,18 @@ ALLOWED_HOSTS = [".run.goorm.io", '127.0.0.1']
 INSTALLED_APPS = [
     'mainAPI',
     'store',
+    'user',
 
     # djangorestframework
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    # allauth
+    'allauth',
+    'allauth.account',
 
     # Django Basic Apps
     'django.contrib.admin',
@@ -39,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'MiliDeal.urls'
@@ -60,6 +70,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'MiliDeal.wsgi.application'
+
+# 사이트 1개만 사용
+SITE_ID = 1
+
+AUTH_USER_MODEL = 'user.User'
+REST_USE_JWT = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x
+ACCOUNT_EMAIL_REQUIRED = True             # email 필드 사용 o
+ACCOUNT_USERNAME_REQUIRED = False         # username 필드 사용 x
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'       # 회원가입 과정에서 이메일 인증 사용 X
+
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -137,6 +159,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.IsAdminUser',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
