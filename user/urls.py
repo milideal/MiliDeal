@@ -33,7 +33,13 @@ http://127.0.0.1:8000/user/auth/login/ 으로 회원 가입 시 사용한 data �
 }
 아래와 같은 응답이 옵니다.
 {
-    "key": "c7b2733cac1c2593596226c37b7173a8e877cf4f"
+    "access": "...",
+    "refresh": "...",
+    "user": {
+        "pk": 1,
+        "email": "test@example.com"
+    }
 }
 이 때 username 은 가입 시 쓴 email 입니다.
+access 와 refresh 는 JWT 에 의해 발행 된 Token 입니다.
 '''
