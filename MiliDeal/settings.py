@@ -84,7 +84,6 @@ ACCOUNT_USERNAME_REQUIRED = False         # username 필드 사용 x
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'       # 회원가입 과정에서 이메일 인증 사용 X
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -163,13 +162,22 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAdminUser',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
 
-REST_USE_JWT = True
+# JWT (JSON Web Token) 설정.
+# https://dj-rest-auth.readthedocs.io/en/latest/installation.html
+REST_AUTH = {
+    # 'SESSION_LOGIN': False,
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'user-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'user-refresh-token',
+}
+
 JWT_AUTH_COOKIE = 'jwt-auth'
 
 SIMPLE_JWT = {
