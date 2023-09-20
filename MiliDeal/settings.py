@@ -208,6 +208,8 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    
+    # Token 지속 시간 설정
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),         # access
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),    # refresh
 }
