@@ -76,6 +76,9 @@ WSGI_APPLICATION = 'MiliDeal.wsgi.application'
 # 사이트 1개만 사용
 SITE_ID = 1
 
+# allauth 설정
+from djongo import models
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.User'
 REST_USE_JWT = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x
@@ -109,15 +112,15 @@ DATABASES = {
             'authMechanism': env_keys('mongo_authMechanism')
         }
     },
-    'user_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
+    # 'user_db': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
 }
 
-DATABASE_ROUTERS = [
-    'Util.db_Router.UserRouter',
-]
+# DATABASE_ROUTERS = [
+#     'Util.db_Router.UserRouter',
+# ]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

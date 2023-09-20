@@ -6,7 +6,8 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', UserViewSets)
 
 urlpatterns = [
-    path("", include(router.urls)),
+    # router에 extend로 등록되어 있어서 path 추가안해도 됨
+    # path("", include(router.urls)),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/register/', include('dj_rest_auth.registration.urls')),
 ]
