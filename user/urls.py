@@ -27,8 +27,8 @@ urlpatterns = [
 Ex) login 요청 시
 http://127.0.0.1:8000/user/auth/login/ 으로 회원 가입 시 사용한 data 를 보내면,
 {
-    "username": "callen@gmail.com",
-    "email": "callen@gmail.com",
+    "username": "test@example.com",
+    "email": "test@example.com",
     "password": "milideal2023"
 }
 아래와 같은 응답이 옵니다.
