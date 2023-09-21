@@ -1,8 +1,6 @@
 from djongo import models
 from djongo.models import DjongoManager
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from rest_framework import status
-from rest_framework.response import Response
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -10,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 class UserManager(DjongoManager):
     use_in_migrations = True
 
+    # Email 중복 확인 메서드
     def email_exists(self, email: str):
         user = User.objects.filter(email=email).first()
         if user:
