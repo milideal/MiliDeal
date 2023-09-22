@@ -15,10 +15,13 @@ class UserViewSets(viewsets.ModelViewSet):
 
 # dj-rest-auth 의 RegisterView 상속
 class CustomRegisterView(RegisterView):
+    serializer_class = CustomRegisterSerializer
+
     def create(self, request, *args, **kwargs):
         email = request.data.get('email')
         if self.user_exists(email):
             return Response({'error': 'Email is already in use.'}, status=status.HTTP_400_BAD_REQUEST)
+
         response = super().create(request, *args, **kwargs)
 
         return response
