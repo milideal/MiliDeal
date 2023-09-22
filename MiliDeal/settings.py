@@ -73,15 +73,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MiliDeal.wsgi.application'
 
-# 사이트 1개만 사용
-SITE_ID = 1
+SITE_ID = 1                               # Site 의 ID, UID 와 비슷한 개념
 
-AUTH_USER_MODEL = 'user.User'
-REST_USE_JWT = True
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x
+AUTH_USER_MODEL = 'user.User'             # Auth 모델로 user app 의 User 를 사용 o
+REST_USE_JWT = True                       # JsonWebToken 사용 o
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x, 대신 nickname 필드 생성
 ACCOUNT_EMAIL_REQUIRED = True             # email 필드 사용 o
 ACCOUNT_USERNAME_REQUIRED = False         # username 필드 사용 x
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'   # 로그인 인증 방법 (username, email, username_email 중 email)
+ACCOUNT_UNIQUE_EMAIL = True               # Email 중복 불허
 ACCOUNT_EMAIL_VERIFICATION = 'none'       # 회원가입 과정에서 이메일 인증 사용 X
 
 # Database
@@ -109,15 +109,22 @@ DATABASES = {
             'authMechanism': env_keys('mongo_authMechanism')
         }
     },
-    'user_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
+    # 'user_db': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
 }
 
-DATABASE_ROUTERS = [
-    'Util.db_Router.UserRouter',
-]
+# DATABASE_ROUTERS = [
+#     'Util.db_Router.UserRouter',
+# ]
+
+from djongo.operations import DatabaseOperations
+
+DatabaseOperations.conditional_expression_supported_in_where_clause = (
+    lambda *args, **kwargs: False
+)
+ 
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -176,6 +183,10 @@ REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'user-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'user-refresh-token',
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'user.serializers.CustomRegisterSerializer',
 }
 
 JWT_AUTH_COOKIE = 'jwt-auth'

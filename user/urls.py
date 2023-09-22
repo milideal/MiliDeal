@@ -1,18 +1,16 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import UserViewSets
+from .views import UserViewSets, CustomRegisterView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', UserViewSets)
 
 urlpatterns = [
-
-    # path("", include(router.urls)),
     path('auth/', include('dj_rest_auth.urls')),
-    path('auth/register/', include('dj_rest_auth.registration.urls')),
+    path('auth/register/', CustomRegisterView.as_view(), name='rest_register'),
 ]
 
-# 아래와 같이 사용할 수 있습니다.
+# 'dj_rest_auth.urls' 를 추가했으므로 아래와 같이 사용할 수 있습니다.
 
 # user/auth/password/reset/ [name='rest_password_reset']
 # user/auth/password/reset/confirm/ [name= rest_password_reset_confirm']
