@@ -1,6 +1,5 @@
 import os
 from datetime import timedelta
-
 import environ
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -86,6 +85,8 @@ ACCOUNT_USERNAME_REQUIRED = False         # username 필드 사용 x
 ACCOUNT_AUTHENTICATION_METHOD = 'email'   # 로그인 인증 방법 (username, email, username_email 중 email)
 ACCOUNT_UNIQUE_EMAIL = True               # Email 중복 불허
 ACCOUNT_EMAIL_VERIFICATION = 'none'       # 회원가입 과정에서 이메일 인증 사용 X
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
