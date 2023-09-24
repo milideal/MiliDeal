@@ -33,6 +33,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
 
+    # django-rest-swagger
+    'rest_framework_swagger',
+
     # Django Basic Apps
     'django.contrib.admin',
     'django.contrib.auth',
