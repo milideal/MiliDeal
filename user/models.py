@@ -1,11 +1,16 @@
-from djongo import models
-from djongo.models import DjongoManager
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+
+from django.db import models
+
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+# from djongo import models
+# from djongo.models import DjongoManager
+# class UserManager(DjongoManager):
 
-class UserManager(DjongoManager):
+
+class UserManager(BaseUserManager):
     use_in_migrations = True
 
     # Email 중복 확인 메서드
