@@ -1,0 +1,77 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('geotest');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.geo.drop();
+
+// Insert a few documents into the sales collection.
+db.geo.insertMany([
+  {
+    _id:1,
+    name: "토탐 숯불닭갈비",
+    location: {
+      type: "Point",
+      coordinates: [127.78302937796401, 37.92941240094174]
+    } 
+  }, {
+    _id:2, 
+    name: "샘밭소양강약국",
+    location: {
+      type: "Point",
+      coordinates: [127.782698758615, 37.92944519339103]
+    } 
+  }, {
+    _id:3, 
+    name: "샘밭막국수",
+    location: {
+      type: "Point",
+      coordinates: [127.78091575237211, 37.929575024516076,],
+      distance:"NE 1100m"
+    
+    } 
+  }, {
+    _id:4, 
+    name: "이디야커피",
+    location: {
+      type: "Point",
+      coordinates: [127.78287445817594, 37.93015410190335],
+      distance:" W 95m"
+    } 
+  }, {
+    _id:5, 
+    name: "오봉산 막국수",
+    location: {
+      type: "Point",
+      coordinates: [127.78199046850204, 37.93172723958245]
+    } 
+    
+  }
+]);
+meter = 125
+// Run a find command to view items sold on April 4th, 2014.
+db.geo.find({
+  location: {
+    $geoWithin: {
+      $centerSphere: [[127.78179107347339, 37.93026139499117], (meter) / (6378100)]
+    }
+  }
+});
+
+// Build an aggregation to view total sales for each product in 2014.
+//const aggregation = [{
+//  $geometry: {
+//   type: "Point",
+//   coordinates: [10, -10]
+//  }
+//}];
+
+// Run the aggregation and open a cursor to the results.
+// Use toArray() to exhaust the cursor to return the whole result set.
+// You can use hasNext()/next() to iterate through the cursor page by page.
+//db.geo.aggregate(aggregation);
