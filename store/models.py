@@ -1,12 +1,10 @@
 from djongo import models
 
-
 class StoreModel(models.Model):
     _id = models.ObjectIdField()
     slug = models.SlugField(unique=True)
     address = models.CharField(max_length=100)   # 한글 주소
-    coordx = models.FloatField()                 # x좌표
-    coordy = models.FloatField()                 # y좌표
+    coord = models.JSONField(null=False)
     name = models.CharField(max_length=100)      # Ex. 서귀포 호텔
     # Ex. 숙박 시설 | 식당 | 기타...
     storeTypes = (
@@ -32,6 +30,7 @@ class StoreModel(models.Model):
     facilities = models.TextField(null=True)     # 부대 시설, Optional
     homepage = models.TextField(null=True)       # 홈페이지, Optional
     endDate = models.DateTimeField(null=True)    # 할인 종료 날짜, Optional undefined: 기한 없음
+    objects = models.DjongoManager()
 
     class Meta:
         db_table = "stores"
