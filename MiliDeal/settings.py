@@ -122,6 +122,7 @@ DATABASES = {
 #     'Util.db_Router.UserRouter',
 # ]
 
+# Active djongo boolean conditional 
 from djongo.operations import DatabaseOperations
 
 DatabaseOperations.conditional_expression_supported_in_where_clause = (
