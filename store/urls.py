@@ -5,8 +5,4 @@ from .views import StoreViewSets
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'store', StoreViewSets)
 
-urlpatterns = [
-    path('', include(router.urls))
-]
-# [path('some_functional_view_rul', views.functional_view)]
-
+urlpatterns = []
