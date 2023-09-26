@@ -13,6 +13,7 @@ for s in store_name:
                 "address": item["road_address_name"],
                 "coordx": item["x"],
                 "coordy": item["y"],
+                "tel": item["phone"],
                 "name": item["place_name"]
             }
             converted_data.append(converted_item)
@@ -41,6 +42,7 @@ for s in store_name:
 address         <==         "road_adress_name"
 coordx          <==         "x"
 coordy          <==         "y"
+tel             <==         "phone"
 name            <==         "place_name"
 ===> store model 에 맞게 메칭
 """
