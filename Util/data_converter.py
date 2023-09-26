@@ -2,9 +2,10 @@ import json
 # store model 에 맞도록 원본 json 을 변환 시키는 코드.
 
 # DATA 폴더 내에 있는 점포 들의 종류
-store_name = ["blue", "cgv", "lotte", "megabox", "vips"]
+# store_name = ["blue", "cgv", "lotte", "megabox", "vips"]
+stores = {"blue": "etc", "cgv": "theater", "lotte": "theater", "megabox": "theater", "vips": "restau"}
 
-for s in store_name:
+for s in stores.keys():
     with open(f'../DATA/{s}_output.json', 'r', encoding='utf-8') as data:
         data = json.load(data)
         converted_data = []
@@ -14,7 +15,8 @@ for s in store_name:
                 "coordx": item["x"],
                 "coordy": item["y"],
                 "tel": item["phone"],
-                "name": item["place_name"]
+                "name": item["place_name"],
+                "storeType": stores[s]
             }
             converted_data.append(converted_item)
         with open(f'../DATA/converted/{s}_converted.json', "w", encoding="utf-8") as output_file:
