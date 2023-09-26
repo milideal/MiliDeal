@@ -5,7 +5,7 @@ from unidecode import unidecode
 # store model 에 맞도록 원본 json 을 변환 시키는 코드.
 
 # DATA 폴더 내에 있는 점포
-stores = {"blueclub": "etc", "cgv": "culture", "lottecinema": "culture", "megabox": "culture", "vips": "restau"}
+stores = {"blueclub": "etc", "cgv": "culturel", "lottecinema": "culturel", "megabox": "culturel", "vips": "restau"}
 
 for s in stores.keys():
     with open(f'../DATA/{s}_output.json', 'r', encoding='utf-8') as data:
