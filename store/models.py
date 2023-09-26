@@ -1,8 +1,8 @@
-from django.db import models
+from djongo import models
 
 
 class StoreModel(models.Model):
-    # _id = models.ObjectIdField()
+    _id = models.ObjectIdField()
     slug = models.SlugField(unique=True)
     address = models.CharField(max_length=100)   # 한글 주소
     coordx = models.FloatField()                 # x좌표
