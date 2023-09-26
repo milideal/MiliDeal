@@ -1,7 +1,9 @@
 import environ
 import json
+import os, sys
 from Util.kakao_api import KakaoAPI
 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 env_keys = environ.Env()
 environ.Env.read_env('.env')
 API_KEY = env_keys('KAKAO_RESTAPI_KEY')
