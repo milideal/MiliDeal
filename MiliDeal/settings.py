@@ -103,7 +103,7 @@ DATABASES = {
                     'propagate': False,
                 }
             },
-        }, 'NAME': env_keys('mongo_collection'),
+        }, 'NAME': env_keys('mongo_database'),
         'CLIENT': {
             'host': env_keys('mongo_host'),
             'port': int(env_keys('mongo_port')),
