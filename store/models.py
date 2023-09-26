@@ -1,8 +1,8 @@
-from djongo import models
+from django.db import models
 
 
 class StoreModel(models.Model):
-    _id = models.ObjectIdField()
+    # _id = models.ObjectIdField()
     slug = models.SlugField(unique=True)
     address = models.CharField(max_length=100)   # 한글 주소
     coordx = models.FloatField()                 # x좌표
@@ -12,6 +12,7 @@ class StoreModel(models.Model):
     storeTypes = (
         ('Accom', '숙박 시설'),
         ('restau', '식당'),
+        ('theater', '영화관'),
         ('etc', '기타')
     )
     storeType = models.CharField(max_length=20, choices=storeTypes)

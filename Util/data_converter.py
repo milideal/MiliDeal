@@ -1,9 +1,11 @@
 import json
+from django.utils.text import slugify
+from unidecode import unidecode
+
 # store model 에 맞도록 원본 json 을 변환 시키는 코드.
 
-# DATA 폴더 내에 있는 점포 들의 종류
-# store_name = ["blue", "cgv", "lotte", "megabox", "vips"]
-stores = {"blue": "etc", "cgv": "theater", "lotte": "theater", "megabox": "theater", "vips": "restau"}
+# DATA 폴더 내에 있는 점포
+stores = {"blueclub": "etc", "cgv": "theater", "lottecinema": "theater", "megabox": "theater", "vips": "restau"}
 
 for s in stores.keys():
     with open(f'../DATA/{s}_output.json', 'r', encoding='utf-8') as data:
@@ -16,7 +18,8 @@ for s in stores.keys():
                 "coordy": item["y"],
                 "tel": item["phone"],
                 "name": item["place_name"],
-                "storeType": stores[s]
+                "storeType": stores[s],
+                "slug": f'{s}-{slugify(unidecode(" ".join(item["place_name"].split()[1:])))}'
             }
             converted_data.append(converted_item)
         with open(f'../DATA/converted/{s}_converted.json', "w", encoding="utf-8") as output_file:
