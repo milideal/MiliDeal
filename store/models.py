@@ -35,3 +35,6 @@ class StoreModel(models.Model):
     class Meta:
         db_table = "stores"
         ordering = ['slug']
+
+    def __str__(self):
+        return self.name
