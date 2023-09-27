@@ -29,7 +29,7 @@ mongo_client = MongoClient(
 def get_slugs_with_geoWithin_search(coordinates:list, distance:int):
     pipeline = []
     pipeline.append({"$match": {"coord": {
-        "$geoWithin":{"$centerSphere": [coordinates, 96 / 6378160]}}}})
+        "$geoWithin":{"$centerSphere": [coordinates, distance / 6378160]}}}})
     pipeline.append({"$group": {"_id" : "slugs","slugs": { "$push": "$slug" }}})
     pipeline.append({"$project": { "_id":0} })
     return list(mongo_client[env_keys('mongo_database')].stores.aggregate(pipeline))[0]["slugs"]
