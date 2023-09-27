@@ -1,22 +1,23 @@
 import environ
 import json
+import os, sys
 from Util.kakao_api import KakaoAPI
 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 env_keys = environ.Env()
 environ.Env.read_env('.env')
 API_KEY = env_keys('KAKAO_RESTAPI_KEY')
 k = KakaoAPI(API_KEY)
 
-with open("./DATA/mega.json", 'r', encoding='utf-8') as data:
+with open("./DATA/lotte.json", 'r', encoding='utf-8') as data:
     data = json.load(data)
     result = []
     failed_list = []
     for location in list(data):
-        title = location["name"]
-        keyword = f"메가박스 {title}"
-        print(keyword)
+        title = location["title"].replace("영화관", "롯데시네마").replace("_", " ")
+        print(title)
         docs = k.get_search_result_by_keyword(
-            keyword=keyword,
+            keyword=title,
             params={
                 "category_group_code": "CT1"
                 }
@@ -26,8 +27,8 @@ with open("./DATA/mega.json", 'r', encoding='utf-8') as data:
             continue
         result.append(docs)
 
-with open(f'megabox_output.json', 'w',  encoding='utf-8') as f:
+with open(f'lotte_output.json', 'w',  encoding='utf-8') as f:
     json.dump(result, f, indent=2, ensure_ascii=False)
 
-with open('megabox_failed.json', 'w',  encoding='utf-8') as f:
+with open('lotte_failed.json', 'w',  encoding='utf-8') as f:
     json.dump(failed_list, f, indent=2, ensure_ascii=False)

@@ -16,10 +16,8 @@ class Migration(migrations.Migration):
             name='StoreModel',
             fields=[
                 ('_id', djongo.models.fields.ObjectIdField(auto_created=True, primary_key=True, serialize=False)),
-                ('slug', models.SlugField(unique=True)),
                 ('address', models.CharField(max_length=100)),
-                ('coordx', models.FloatField()),
-                ('coordy', models.FloatField()),
+                ('coord', djongo.models.fields.JSONField()),
                 ('name', models.CharField(max_length=100)),
                 ('storeType', models.CharField(choices=[('Accom', '숙박 시설'), ('restau', '식당'), ('culturel', '문화시설'), ('etc', '기타')], max_length=20)),
                 ('imageSrc', models.ImageField(null=True, upload_to='store')),
@@ -32,7 +30,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'stores',
-                'ordering': ['slug'],
             },
         ),
     ]
