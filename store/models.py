@@ -12,6 +12,7 @@ class StoreModel(models.Model):
     storeTypes = (
         ('Accom', '숙박 시설'),
         ('restau', '식당'),
+        ('culturel', '문화시설'),
         ('etc', '기타')
     )
     storeType = models.CharField(max_length=20, choices=storeTypes)
