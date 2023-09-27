@@ -34,6 +34,20 @@ class StoreGeoSearchViewSets(ReadOnlyModelViewSet):
            % self.__class__.__name__
         )      
         
+        """
+        Util.mongo_geo.py 로 데이터를 불러오면 결국 Dict(원래는 Cursor)객체라
+        # searched_instance = [StoreModel(**data) for data in searched]
+        StoreModel에 넣어봤는데 list에 모은다고 queryset이 되는게 아님..
+        list에 넣고 QuerySet으로 형변환이 될줄 알았는데 안됨.
+
+        Model instance로 바꿔줄려면 검색된 애들로 Filter를 다시해야됨. > 연산이 3배
+        DB에서라도 연산의 최소화를 해야함..
+        
+        find 에서 aggregate 로 slug만 가져오게 함.
+        처음부터 DB에서 slug 만 불러오면 좀 낫지 않을까 싶었음.
+        모델에서 slug 만 불러오고 그걸로 filter 걺.
+        그럼 정상적으로 QuerySet 객체로 반환됨.
+        """
 
         queryset = self.queryset
         if isinstance(queryset, QuerySet):
