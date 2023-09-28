@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     # username = models.TextField(max_length=30, unique=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, primary_key=True)
     nickname = models.CharField(max_length=30, blank=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
