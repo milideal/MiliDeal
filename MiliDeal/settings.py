@@ -13,6 +13,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env_keys('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = [".run.goorm.io", '127.0.0.1']
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # Application definition
 
