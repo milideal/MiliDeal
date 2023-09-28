@@ -1,12 +1,13 @@
-from review.models import Review
+from .models import Review
 from rest_framework import serializers
 
 class ReviewSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField()
+    _id = serializers.StringRelatedField(read_only=True)
+    author = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Review
-        # fields = '__all__'
-        exclude = ('_id', )
+        exclude = ("review_of",)
 
-    
+    # def get_review_list(self, instance):
+    #     reviews = instance.reviews

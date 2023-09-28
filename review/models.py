@@ -20,4 +20,3 @@ class Review(models.Model):
         null=False, 
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
-
