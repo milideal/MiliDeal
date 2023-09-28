@@ -1,6 +1,5 @@
 import os
 from datetime import timedelta
-
 import environ
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,6 +32,9 @@ INSTALLED_APPS = [
     # allauth
     'allauth',
     'allauth.account',
+
+    # drf_yasg
+    'drf_yasg',
 
     # Django Basic Apps
     'django.contrib.admin',
@@ -85,6 +87,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'   # 로그인 인증 방법 (username, e
 ACCOUNT_UNIQUE_EMAIL = True               # Email 중복 불허
 ACCOUNT_EMAIL_VERIFICATION = 'none'       # 회원가입 과정에서 이메일 인증 사용 X
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -100,7 +104,7 @@ DATABASES = {
                     'propagate': False,
                 }
             },
-        }, 'NAME': env_keys('mongo_collection'),
+        }, 'NAME': env_keys('mongo_database'),
         'CLIENT': {
             'host': env_keys('mongo_host'),
             'port': int(env_keys('mongo_port')),
@@ -120,6 +124,7 @@ DATABASES = {
 #     'Util.db_Router.UserRouter',
 # ]
 
+# Active djongo boolean conditional 
 from djongo.operations import DatabaseOperations
 
 DatabaseOperations.conditional_expression_supported_in_where_clause = (

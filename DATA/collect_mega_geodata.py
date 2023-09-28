@@ -1,23 +1,27 @@
 import environ
 import json
+import os, sys
 from Util.kakao_api import KakaoAPI
 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 env_keys = environ.Env()
 environ.Env.read_env('.env')
 API_KEY = env_keys('KAKAO_RESTAPI_KEY')
 k = KakaoAPI(API_KEY)
 
-
-with open("./DATA/blue_hair.json", 'r', encoding='utf-8') as data:
+with open("./DATA/mega.json", 'r', encoding='utf-8') as data:
     data = json.load(data)
     result = []
     failed_list = []
     for location in list(data):
-        shop_title = location["shop_title"]
-        keyword = f"블루클럽 {shop_title}"
+        title = location["name"]
+        keyword = f"메가박스 {title}"
         print(keyword)
         docs = k.get_search_result_by_keyword(
-            keyword=keyword
+            keyword=keyword,
+            params={
+                "category_group_code": "CT1"
+                }
             )
         if docs is None:
             failed_list.append(location)
