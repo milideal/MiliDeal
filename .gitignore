@@ -1,7 +1,9 @@
 .env
 goorm.manifest
 *.json
-data/
+*.mongodb
+static/
+DATA/
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,python,pycharm
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,pycharm
@@ -415,4 +417,3 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
-*.mongodb
