@@ -36,8 +36,8 @@ API 개발 저장소입니다.
 기본적으로 https://gitmoji.dev/ 의 아이콘을 사용하여 다음과 같이 작성합니다.
 
 ```md
-:sparkles: Add login pages
-:bug: Fix CORS Error
+:sparkles: Add Search API
+:bug: Fix Djongo Manager Error
 ```
 
 주로 사용하는 아이콘은 다음과 같습니다.
