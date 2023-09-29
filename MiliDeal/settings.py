@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'mainAPI',
     'store',
     'user',
+    'review',
 
     # djangorestframework
     'rest_framework',
