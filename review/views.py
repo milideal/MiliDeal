@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 
 from review.serializers import ReviewSerializer
 from review.models import Review
-from review.ReviewPagination import ReviewPagination
+from review.Pagination import Pagination
 from review.IsAuthorOrReadOnly import IsAuthorOrReadOnly
 from store.models import StoreModel
 from Util.decorators import convert_objectId
@@ -14,7 +14,7 @@ from Util.decorators import convert_objectId
 class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    pagination_class = ReviewPagination
+    pagination_class = Pagination
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
