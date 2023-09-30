@@ -6,8 +6,6 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'review', ReviewViewSet)
 
 
-urlpatterns = [
-    path('', include(router.urls))
-]
+urlpatterns = []
 # [path('some_functional_view_rul', views.functional_view)]
 
