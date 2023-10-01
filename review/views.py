@@ -32,3 +32,9 @@ class ReviewViewSet(ModelViewSet):
     @convert_objectId
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, args, kwargs)
+
+    def get_permissions(self):
+        if self.action in ['update', 'destroy']:
+            permission_classes = [IsAuthorOrReadOnly]
+            return [permission() for permission in permission_classes]
+        super().get_permissions()
