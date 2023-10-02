@@ -3,20 +3,42 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.shortcuts import get_object_or_404
 from django.db.models.query import QuerySet
 from django.http import Http404
+from django.db.models import Avg
+from collections import OrderedDict
+
 
 from review.serializers import ReviewSerializer
 from review.models import Review
 from review.Pagination import Pagination
 from Util.IsAuthorOrReadOnly import IsAuthorOrReadOnly
 from store.models import StoreModel
+from pprint import pp
 
 
-# Create your views here.
 class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     pagination_class = Pagination
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    # Add score_average
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            # get_paginated_response => response 객체 
+            ret = self.get_paginated_response(serializer.data)
+            # Review.objects.aggregate => dict 객체
+            # OrderedDict로 안 바꿔줘도 응답은 잘 가는데 혹시나 싶어서 형변환 했습니다.
+            ret_ = OrderedDict(Review.objects.aggregate(Avg('score')))
+            ret_.update({"reviews":ret.data["results"]})
+            pp(ret_)
+            ret.data["results"] = ret_
+            return ret
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def perform_create(self, serializer):
         store_slug = self.request.query_params.get('slug')
@@ -40,7 +62,7 @@ class ReviewViewSet(ModelViewSet):
         return super().get_permissions()
 
     def get_object(self):
-        queryset = self.filter_queryset(self.get_queryset()) 
+        queryset = self.filter_queryset(self.get_queryset())
         obj = get_object_or_404(queryset, author=self.request._user)
 
         # May raise a permission denied
@@ -58,5 +80,6 @@ class ReviewViewSet(ModelViewSet):
         queryset = self.queryset
         if isinstance(queryset, QuerySet):
             # Ensure queryset is re-evaluated on each request.
-            queryset = queryset.filter(review_of__slug=slug).order_by("-created_at")
+            queryset = queryset.filter(
+                review_of__slug=slug).order_by("-created_at")
         return queryset
