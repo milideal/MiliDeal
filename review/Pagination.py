@@ -1,5 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
 
 
-class ReviewPagination(PageNumberPagination):
+class Pagination(PageNumberPagination):
     page_size = 10
