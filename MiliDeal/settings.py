@@ -13,7 +13,43 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env_keys('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = [".run.goorm.io", '127.0.0.1']
+
+
+# COOP CORS Settings
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+CORS_ALLOW_METHODS = [
+    "OPTIONS",
+    "HEAD",
+    "GET",
+    "PATCH",
+    "POST",
+    "PUT",
+    "DELETE",
+]
+
+CORS_ALLOW_HEADERS = [ "*",
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.client-7sl.pages.dev",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -47,9 +83,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # CORS 
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
