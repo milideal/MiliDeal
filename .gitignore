@@ -1,4 +1,4 @@
-.env
+*.env
 goorm.manifest
 *.json
 *.mongodb
