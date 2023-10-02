@@ -7,7 +7,7 @@ from django.http import Http404
 from review.serializers import ReviewSerializer
 from review.models import Review
 from review.Pagination import Pagination
-from review.IsAuthorOrReadOnly import IsAuthorOrReadOnly
+from Util.IsAuthorOrReadOnly import IsAuthorOrReadOnly
 from store.models import StoreModel
 
 
