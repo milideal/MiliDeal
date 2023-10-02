@@ -58,5 +58,5 @@ class ReviewViewSet(ModelViewSet):
         queryset = self.queryset
         if isinstance(queryset, QuerySet):
             # Ensure queryset is re-evaluated on each request.
-            queryset = queryset.filter(review_of__slug=slug)
+            queryset = queryset.filter(review_of__slug=slug).order_by("-created_at")
         return queryset
