@@ -15,8 +15,9 @@ class UserManager(BaseUserManager):
 
     # Email 중복 확인 메서드
     def email_exists(self, email: str):
-        users = User.objects.all()
-        user = users.objects.filter(email=email).first()
+        # users = User.objects.all()
+        # user = users.objects.filter(email=email).first()
+        user = User.objects.filter(email=email).first()
         if user:
             return True
         else:
