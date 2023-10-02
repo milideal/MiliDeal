@@ -21,20 +21,22 @@ class ReviewViewSet(ModelViewSet):
     pagination_class = Pagination
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    # Add score_average
+
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            # get_paginated_response => response 객체 
+            serializer = self.get_serializer(page, many=True)   
             ret = self.get_paginated_response(serializer.data)
-            # Review.objects.aggregate => dict 객체
-            # OrderedDict로 안 바꿔줘도 응답은 잘 가는데 혹시나 싶어서 형변환 했습니다.
-            ret_ = OrderedDict(Review.objects.aggregate(Avg('score')))
+            # Add score_average
+            
+            # get_paginated_response => response 객체 반환
+            # response.data 객체는 OrderedDict Type
+            # aggregate => dict 반환
+            # OrderedDict로 안 바꿔줘도 응답은 정상인데 혹시몰라 형변환 했습니다.
+            ret_ = OrderedDict(self.get_queryset().aggregate(Avg('score')))
             ret_.update({"reviews":ret.data["results"]})
-            pp(ret_)
             ret.data["results"] = ret_
             return ret
         serializer = self.get_serializer(queryset, many=True)
