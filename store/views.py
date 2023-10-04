@@ -2,7 +2,7 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from django.db.models.query import QuerySet
 
-from Util.mongo_geo import get_slugs_with_geoWithin_search
+from Util.mongo_geo import get_slugs_with_geoNear_search
 from store.serializers import StoreListSerializer, StoreDetailSerializer
 from store.models import StoreModel
 
@@ -33,7 +33,7 @@ class StoreGeoSearchViewSets(ReadOnlyModelViewSet):
         )
         coordination = list(map(float,(coord_x, coord_y)))
         distance =  int(distance)
-        searched_slugs = get_slugs_with_geoWithin_search(coordination, distance)
+        searched_slugs = get_slugs_with_geoNear_search(coordination, distance)
         self.queryset = StoreModel.objects.filter(slug__in=searched_slugs)
         assert self.queryset is not None, (
             "'%s' should either include a `queryset` attribute, "
