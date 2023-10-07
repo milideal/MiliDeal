@@ -1,5 +1,14 @@
 from djongo import models
 
+class TargetModel(models.Model):
+    _id = models.ObjectIdField()
+    slug = models.SlugField(unique=True) 
+    
+    class Meta:
+        db_table = "targets"
+        ordering = ['slug']
+    pass
+
 class StoreModel(models.Model):
     _id = models.ObjectIdField()
     slug = models.SlugField(unique=True)
@@ -8,22 +17,20 @@ class StoreModel(models.Model):
     name = models.CharField(max_length=100)      # Ex. 서귀포 호텔
     # Ex. 숙박 시설 | 식당 | 기타...
     storeTypes = (
-        ('Accom', '숙박 시설'),
-        ('restau', '식당'),
-        ('culturel', '문화시설'),
+        ('accommodation', '숙박 시설'),
+        ('food', '식당'),
+        ('culture', '문화시설'),
         ('etc', '기타')
     )
     storeType = models.CharField(max_length=20, choices=storeTypes)
-    # AccomDetail | RestauDetail | EtcDetail 추후 변경 가능
-    # detail = models.CharField(max_length=100)
     imageSrc = models.ImageField(upload_to='store', null=True)  # 예시 이미지 주소
     # 할인 대상 Ex. 군인(병사, 부사관, 장교)
     TARGET_CHOICES = (
-        ('ALL', '전 장병 및 군무원'),  # ALL
-        ('ADS', '현역 용사'),  # Active Duty Solider
-        ('NCO', '부사관'),  # Non-commissioned officer
-        ('OF', '장교'),  # officer
-        ('MC', '군무원'))  # Military Civilian
+        ('ALL', '장병 및 군무원'),  # ALL
+        ('ADS', '현역 용사 만'),  # Active Duty Solider
+        ('OS', '장병 만'),  # Only Soldier
+        ('PS', '직업군인 만'),  # professional soldier
+        ('MC', '군무원 만'))  # Military Civilian
     target = models.CharField(max_length=3, choices=TARGET_CHOICES)
     # target = models.TextField()                  
     promotion = models.TextField(null=True)      # 할인 정보, Optional
