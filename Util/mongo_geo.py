@@ -42,7 +42,7 @@ def get_slugs_with_geoWithin_search(coordinates: list, distance: int):
     return []
 
 
-def get_slugs_with_geoNear_search(coordinates: list, distance: int, limit=10):
+def get_slugs_with_geoNear_search(coordinates: list, distance: int, limit:int=50, store_type=None):
     pipeline = []
     pipeline.append({
         "$geoNear": {
@@ -57,12 +57,15 @@ def get_slugs_with_geoNear_search(coordinates: list, distance: int, limit=10):
             "key": 'coord'
         }
     })
+    if store_type!= None:
+        pipeline.append({ "$match": {"storeType": store_type}})
     pipeline.append({"$group": {"_id": "slugs", "results": {
                     "$push": {"slug": "$slug", "distance": "$distance"}}}})
     pipeline.append({"$project": {"_id": 0}})
     # 검색 결과가 없으면 list index out of range 가 나옴
     results = list(mongo_client[env_keys(
         'mongo_database')].stores.aggregate(pipeline))
+    
     if results:
         return results[0]["results"]
     return []
