@@ -1,6 +1,8 @@
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from django.db.models.query import QuerySet
+from rest_framework import filters
+
 
 from Util.mongo_geo import get_slugs_with_geoNear_search
 from store.serializers import StoreListSerializer, StoreDetailSerializer
@@ -9,11 +11,14 @@ from store.models import StoreModel
 from pprint import pprint, pp
 
 STORE_TYPES = [i[0] for i in StoreModel.storeTypes]
+
 class StoreViewSets(ModelViewSet):
     queryset = StoreModel.objects.all()
     serializer_class = StoreListSerializer
     lookup_field = 'slug'
-
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['slug', 'name', 'address'] 
+    
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = StoreDetailSerializer(instance, context={'request': request})
@@ -63,3 +68,4 @@ class StoreGeoSearchViewSets(ReadOnlyModelViewSet):
             # Ensure queryset is re-evaluated on each request.
             queryset = queryset.all()
         return queryset
+
