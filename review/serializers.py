@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    #_id = serializers.StringRelatedField(read_only=True)
+    # _id = serializers.StringRelatedField(read_only=True)
     author = serializers.StringRelatedField(read_only=True)
 
     class Meta:

@@ -11,4 +11,3 @@ router_mapping['delete'] = 'destroy'
 
 urlpatterns = []
 # [path('some_functional_view_rul', views.functional_view)]
-

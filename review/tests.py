@@ -21,11 +21,11 @@ class ReviewTestCase(TestCase):
         store = StoreModel.objects.create(slug=self.store_slug)
         user = User.objects.create(email=self.email, nickname=self.nickname)
         review = Review.objects.create(
-                review_of=store, 
-                author=user,
-                review=self.review_text, 
-                score=3
-            )
+            review_of=store,
+            author=user,
+            review=self.review_text,
+            score=3
+        )
         review_id = review._id
 
         retrieved_review = Review.objects.get(pk=review_id)
@@ -35,14 +35,12 @@ class ReviewTestCase(TestCase):
         factory = APIRequestFactory()
         store = StoreModel.objects.create(slug=self.store_slug)
         user = User.objects.create()
-        
+
         request = factory.post(
-            "/review/", 
+            "/review/",
             {
                 "review": self.review_text,
                 "score": 2,
-            }, 
+            },
             format='json'
         )
-
-        

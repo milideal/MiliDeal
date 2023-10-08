@@ -9,4 +9,3 @@ urlpatterns = [
     path('', include(router.urls))
 ]
 # [path('some_functional_view_rul', views.functional_view)]
-

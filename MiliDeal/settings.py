@@ -1,3 +1,4 @@
+from djongo.operations import DatabaseOperations
 import os
 from datetime import timedelta
 import environ
@@ -28,16 +29,16 @@ CORS_ALLOW_METHODS = [
     "DELETE",
 ]
 
-CORS_ALLOW_HEADERS = [ "*",
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-]
+CORS_ALLOW_HEADERS = ["*",
+                      "accept",
+                      "accept-encoding",
+                      "authorization",
+                      "content-type",
+                      "origin",
+                      "user-agent",
+                      "x-csrftoken",
+                      "x-requested-with",
+                      ]
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
@@ -83,7 +84,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # CORS 
+    # CORS
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
@@ -122,7 +123,8 @@ REST_USE_JWT = True                       # JsonWebToken 사용 o
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x, 대신 nickname 필드 생성
 ACCOUNT_EMAIL_REQUIRED = True             # email 필드 사용 o
 ACCOUNT_USERNAME_REQUIRED = False         # username 필드 사용 x
-ACCOUNT_AUTHENTICATION_METHOD = 'email'   # 로그인 인증 방법 (username, email, username_email 중 email)
+# 로그인 인증 방법 (username, email, username_email 중 email)
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True               # Email 중복 불허
 ACCOUNT_EMAIL_VERIFICATION = 'none'       # 회원가입 과정에서 이메일 인증 사용 X
 
@@ -163,13 +165,12 @@ DATABASES = {
 #     'Util.db_Router.UserRouter',
 # ]
 
-# Active djongo boolean conditional 
-from djongo.operations import DatabaseOperations
+# Active djongo boolean conditional
 
 DatabaseOperations.conditional_expression_supported_in_where_clause = (
     lambda *args, **kwargs: False
 )
- 
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -265,7 +266,7 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    
+
     # Token 지속 시간 설정
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),         # access
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),    # refresh
