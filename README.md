@@ -57,60 +57,11 @@ API 개발 저장소입니다.
 - :twisted_rightwards_arrows: 브랜치 머지
 - :poop: - 응가 코드
 
-## DataBase
 
-### Entity Relationship Diagram
+## UML(Unified Modeling Language)
+![myapp_models](https://github.com/milideal/server/assets/43837268/f812a9e6-441b-4a9d-a8cf-016539afa1d0)
 
-```mermaid
----
-title: MiliDeal DB Schema
----
-%%{
-	init: {
-		"theme": "forest",
-		"themeCSS": [
-			"[id*=entity-Store] .er.entityBox { fill: orange;}",
-			"[id*=entity-User] .er.entityBox { fill: #CC6692;}"
-		]}
-}%%
-erDiagram
-	Store||--o{ Review : ""
-	User ||--o{ Review : ""
-	Store {
-    ObjectId _id PK
-		Slug slug PK, FK
-		Char(100) address
-		Float coordx
-		Float coordy
-		Char(100) name
-		Char(20) storeType
-		Image imageSrc
-		Char(3) target
-		Text promotion
-		Text tel
-		Text facilities
-		Text homepage
-		DateTime endDate
-	}
 
-	Review {
-		ObjectId _id PK
-		Objectid reviewOf FK
-		Embedding author_id FK
-		Text review
-		Float score
-	}
-
-	User {
-		ObjectId _id PK
-		Char name
-		Integer age
-		Boolean isMilitary
-		Char military_rank "계급 + 군무원"
-
-		Char troop
-	}
-```
 
 ## Contributers
 
